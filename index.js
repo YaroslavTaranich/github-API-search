@@ -1,3 +1,5 @@
+// не знаю нужно ли было, но добавил коментарии
+
 const input = document.querySelector(".search");
 const autocomplite = document.querySelector(".autocomplite");
 const repoList = document.querySelector(".repo-list");
@@ -18,15 +20,17 @@ const debounce = (fn, debounceTime) => {
 
 // делаем поисковый запрос по строке, возвращаем ответ или выкидываем ошибку
 
-async function searchRepo(query) {
+async function searchRepo(query, itemsCount) {
   const searchURL = "https://api.github.com/search/repositories";
 
-  const response = await fetch(`${searchURL}?q=${query}&sort=stars`, {
-    headers: {
-      "Content-Type": "application/vnd.github.v3+json",
-    },
-  });
-  console.log(response);
+  const response = await fetch(
+    `${searchURL}?q=${query}&sort=stars&per_page=${itemsCount}`,
+    {
+      headers: {
+        "Content-Type": "application/vnd.github.v3+json",
+      },
+    }
+  );
   if (response.ok) return response.json();
   throw new Error("Ошибка загрузки");
 }
@@ -62,18 +66,17 @@ async function renderAutocomplite(searchQuery) {
   let content = "";
 
   try {
-    const { items } = await searchRepo(searchQuery);
-    const count = items.length > 5 ? 5 : items.length;
+    const { items } = await searchRepo(searchQuery, 5);
 
     // если ничего не найдено, будем это выводить
-    if (count === 0) {
+    if (items.length === 0) {
       content += `
         <li class="error">По вашему запросу ничего не найдено :(</li>
         `;
       return;
     } else {
       // иначе собираем автокомплит
-      for (let i = 0; i < count; i++) {
+      for (let i = 0; i < items.length; i++) {
         content += `
           <li 
             class="autocomplite__item"
