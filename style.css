@@ -32,7 +32,7 @@ body {
     margin: 0;
     padding: 0;
     width: 500px;
-    max-height: 230px;
+    max-height: 250px;
     visibility: visible;
     opacity: 1;
     transition: all .5s;
@@ -53,7 +53,10 @@ body {
     box-sizing: border-box;
     font-size: 30px;
     padding: 5px 12px;
-    height: 44px;
+    min-height: 44px;
+    cursor: pointer;
+    white-space: nowrap;
+    overflow: hidden;
 }
 
 .autocomplite__item:hover {
@@ -73,8 +76,13 @@ body {
     justify-content: space-between;
     background: #E27BEB;
     border: 1px solid #000000;
-    height: 100px;
+    min-height: 100px;
     align-items: center;
+}
+
+.repo__link {
+    color: #000000;
+    text-decoration: none;
 }
 
 .repo__info {
@@ -83,6 +91,17 @@ body {
     margin: 8px 16px;
     font-size: 24px;
     line-height: 28px;
+    max-width: 75%;
+}
+
+.error {
+    font-size: 24px;
+    /* line-height: 58px; */
+    padding: 25px 15px;
+    box-sizing: border-box;
+    background-color: rgba(255, 0, 0, 0.413);
+    width: 100%;
+
 }
 
 .close {
@@ -93,4 +112,51 @@ body {
     background-repeat: no-repeat;
     margin-right: 34px;
     cursor: pointer;
+    transition: .4s;
+}
+
+.close:hover {
+    transform: scale(1.2);
+}
+
+.remove-animation {
+    transform: translateX(-100%);
+    opacity: 0;
+    transition: all .3s;
+}
+
+.spinner {
+    display: none;
+    width: 100%;
+    height: 100px;
+    justify-content: center;
+    align-items: center;
+}
+
+.dual-ring {
+    display: inline-block;
+    width: 80px;
+    height: 80px;
+}
+
+.dual-ring:after {
+    content: " ";
+    display: block;
+    width: 64px;
+    height: 64px;
+    margin: 8px;
+    border-radius: 50%;
+    border: 6px solid #fff;
+    border-color: #fff transparent #fff transparent;
+    animation: dual-ring 1.2s linear infinite;
+}
+
+@keyframes dual-ring {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
 }
