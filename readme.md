@@ -1,3 +1,3 @@
-## JS Core. Задача 4.2.7
+## Тестовое задание
 
 GH-pages: https://yaroslavtaranich.github.io/KATA-js-core-repo/
